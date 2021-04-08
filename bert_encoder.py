@@ -15,7 +15,7 @@ class TextEncoder(BertPreTrainedModel):
 
 
 def data_loader(lines, tokenizer):
-    data = tokenizer.batch_encode_plus(lines, max_length=10, padding='max_length', truncation=True)
+    data = tokenizer.batch_encode_plus(lines, max_length=256, padding='max_length', truncation=True)
     all_input_ids = torch.tensor(data['input_ids'], dtype=torch.long)
     all_attention_mask = torch.tensor(data['attention_mask'], dtype=torch.long)
     all_token_type_ids = torch.tensor(data['token_type_ids'], dtype=torch.long)
@@ -23,7 +23,7 @@ def data_loader(lines, tokenizer):
 
 
 def encode(lines):
-    model_name_or_path = '/home/xyf/models/chinese/bert/pytorch/bert-base-chinese'
+    model_name_or_path = '/root/models/chinese/bert/pytorch/bert-base-chinese'
     config = AutoConfig.from_pretrained(model_name_or_path)
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
     model = TextEncoder.from_pretrained(pretrained_model_name_or_path=model_name_or_path, config=config)
